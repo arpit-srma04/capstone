@@ -18,8 +18,8 @@ resource "random_id" "bucket_suffix" {
   byte_length = 8
 }
 
-resource "aws_s3_bucket" "t1bucket" {
-  bucket = "vedanth-arpit-${random_id.bucket_suffix.hex}"  # Make bucket name unique
+resource "aws_s3_bucket" "bucketforcapstone" {
+  bucket = "bucketusingterraform${random_id.bucket_suffix.hex}"  # Make bucket name unique
   acl    = "private"
 }
 
