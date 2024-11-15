@@ -9,6 +9,7 @@ resource "aws_instance" "ec_2" {
   tags = {
     Name = "team_1_capstone"
   }
+ monitoring=true
 }
 
 resource "aws_s3_bucket" "t1bucket" {
