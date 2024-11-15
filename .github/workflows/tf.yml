@@ -1,0 +1,38 @@
+name: Terraform CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest  # Change from amazon-linux to ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Correct reference to secret
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}  # Correct reference to secret
+          aws-region: us-east-1  # Set the desired AWS region
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0  # Specify the version of Terraform you want
+
+      - name: Terraform Init
+        run: terraform init  # Initialize Terraform configuration
+
+      - name: Terraform Plan
+        run: terraform plan  # Run Terraform Plan to show the changes Terraform will make
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve 
